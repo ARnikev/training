@@ -4,14 +4,17 @@ buildscript {
 	}
 	repositories {
 		mavenCentral()
+		jcenter()
 	}
 	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+		classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
 	}
 }
 
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'org.asciidoctor.convert'
 
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
@@ -25,13 +28,22 @@ ext {
 	springCloudVersion = 'Dalston.SR1'
 }
 
-dependencies {
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.cloud:spring-cloud-starter-eureka')
-	compile('org.springframework.cloud:spring-cloud-starter-feign')
+asciidoctor {
+	attributes 'snippets': file('build/generated-snippets')
+}
 
-	compileOnly('org.projectlombok:lombok')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+asciidoctor.dependsOn test
+
+dependencies {
+	compile 'org.springframework.boot:spring-boot-starter-web'
+	compile 'org.springframework.cloud:spring-cloud-starter-eureka'
+	compile 'org.springframework.cloud:spring-cloud-starter-feign'
+
+	compileOnly 'org.projectlombok:lombok'
+
+	testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc:1.2.1.RELEASE'
+	testCompile 'org.springframework.restdocs:spring-restdocs-core:1.2.1.RELEASE'
+	testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 
 dependencyManagement {

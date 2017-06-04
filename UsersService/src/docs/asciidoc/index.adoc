@@ -1,0 +1,12 @@
+= Сервис по получению информации о пользователе и его счетах
+
+== Request
+
+include::{snippets}/should-return-user-with-accounts/http-request.adoc[]
+include::{snippets}/should-return-user-with-accounts/httpie-request.adoc[]
+include::{snippets}/should-return-user-with-accounts/curl-request.adoc[]
+
+== Response
+
+include::{snippets}/should-return-user-with-accounts/http-response.adoc[]
+include::{snippets}/should-return-user-with-accounts/response-fields.adoc[]
